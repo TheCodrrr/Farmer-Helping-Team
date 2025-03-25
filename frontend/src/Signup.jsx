@@ -421,7 +421,7 @@ export default function Signup({ darkMode }) {
                                 <i className="fas fa-id-card"></i>
                             </span>
                             <input
-                                type="text"
+                                type="password"
                                 value={bankCredentials}
                                 onChange={(e) => setBankCredentials(e.target.value)}
                                 className={`pl-10 pr-3 py-2 w-full border rounded-lg ${inputBgClass}`}
@@ -462,7 +462,7 @@ export default function Signup({ darkMode }) {
     return (
         <div className={`min-h-screen flex items-center justify-center ${darkMode ? "bg-gradient-to-br from-gray-900 to-gray-800" : "bg-gradient-to-br from-green-50 to-green-100"} py-12 px-4 sm:px-6 lg:px-8`}>
             <div className={`max-w-md w-full rounded-xl overflow-hidden ${cardBgClass}`}>
-                <div className={`${headerBgClass} py-4 px-6`}>
+                <div className={`${headerBgClass} py-4 px-6 ${userType === "Farmer" ? "" : "accent-blue-600"}`}>
                     <h1 className="text-2xl font-bold text-white text-center">
                         {userType === "Farmer" ? "Create Farmer Account" : "Create Bank/NBFC Account"}
                     </h1>

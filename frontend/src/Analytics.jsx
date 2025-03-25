@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import './Analytics.css'
 import Chart from "chart.js/auto";
 import axios from "axios";
-import { CloudRain, Loader } from "lucide-react";
+import { CloudRain, Loader, RefreshCw } from "lucide-react";
 
 const fahrenheitToCelsius = (fahrenheit) => ((fahrenheit - 32) * 5) / 9;
 const weatherImages = ["sunny", "cloudy", "rainy", "partly-cloudy"];
@@ -331,33 +332,72 @@ export default function Analytics({ darkMode }) {
                 </p>
                 <p>Soil Type: {farmerData.soilType}</p>
               </div>
+              
               <div className="w-full md:w-72">
-                <div className="flex justify-between mb-1">
+                <div className="flex justify-between items-center mb-1">
                   <span className="font-medium">Credit Score</span>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold">{farmerData.creditScore}/100</span>
-                    <button
-                      onClick={handleGetCreditScore}
-                      disabled={isLoadingCreditScore}
-                      className={`px-2 py-1 text-sm rounded ${
-                        darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
-                      } ${isLoadingCreditScore ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                      {isLoadingCreditScore ? "Loading..." : "Refresh"}
-                    </button>
+                  <div>
+                    {isLoadingCreditScore ? (
+                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${darkMode ? 'bg-slate-700 text-slate-200' : 'bg-slate-200 text-slate-800'}`}>
+                        <div className="credit-score-loader">
+                          <svg viewBox="0 0 80 20" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10" cy="10" r="6" fill={darkMode ? '#4ade80' : '#22c55e'} opacity="0.4">
+                              <animate attributeName="opacity" values="0.4;1;0.4" dur="1s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="40" cy="10" r="6" fill={darkMode ? '#4ade80' : '#22c55e'} opacity="0.4">
+                              <animate attributeName="opacity" values="0.4;1;0.4" dur="1s" begin="0.2s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="70" cy="10" r="6" fill={darkMode ? '#4ade80' : '#22c55e'} opacity="0.4">
+                              <animate attributeName="opacity" values="0.4;1;0.4" dur="1s" begin="0.4s" repeatCount="indefinite" />
+                            </circle>
+                          </svg>
+                        </div>
+                        <span className="ml-1">Analyzing...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <span className={`font-bold text-lg ${
+                          farmerData.creditScore > 70 ? (darkMode ? 'text-green-400' : 'text-green-600') : 
+                          farmerData.creditScore > 60 ? (darkMode ? 'text-yellow-400' : 'text-yellow-600') : 
+                          (darkMode ? 'text-red-400' : 'text-red-600')
+                        }`}>
+                          {farmerData.creditScore}/100
+                        </span>
+                        <button
+                          onClick={handleGetCreditScore}
+                          disabled={isLoadingCreditScore}
+                          className={`p-1.5 rounded-full transition-all ${
+                            darkMode 
+                              ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' 
+                              : 'bg-slate-200 hover:bg-slate-300 text-slate-700'
+                          } ${isLoadingCreditScore ? "opacity-50 cursor-not-allowed" : "hover:scale-110"}`}
+                        >
+                          <RefreshCw size={14} className={isLoadingCreditScore ? "animate-spin" : ""} />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                  <div
-                    className={`h-2.5 rounded-full ${
-                      farmerData.creditScore > 70
-                        ? "bg-green-600"
-                        : farmerData.creditScore > 60
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                    style={{ width: `${farmerData.creditScore}%` }}
-                  ></div>
+                <div className="w-full rounded-full h-3 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                  {isLoadingCreditScore ? (
+                    <div className="h-full bg-gradient-to-r from-green-500 via-green-300 to-green-500 animate-shimmer" style={{ backgroundSize: '200% 100%' }}></div>
+                  ) : (
+                    <div
+                      className={`h-full rounded-full transition-all duration-700 ${
+                        farmerData.creditScore > 70
+                          ? "bg-gradient-to-r from-green-600 to-green-400"
+                          : farmerData.creditScore > 60
+                          ? "bg-gradient-to-r from-yellow-600 to-yellow-400"
+                          : "bg-gradient-to-r from-red-600 to-red-400"
+                      }`}
+                      style={{ width: `${farmerData.creditScore}%` }}
+                    ></div>
+                  )}
+                </div>
+                <div className="flex justify-between text-xs mt-1">
+                  <span className={darkMode ? "text-red-400" : "text-red-600"}>Poor</span>
+                  <span className={darkMode ? "text-yellow-400" : "text-yellow-600"}>Fair</span>
+                  <span className={darkMode ? "text-green-400" : "text-green-600"}>Excellent</span>
                 </div>
               </div>
             </div>
