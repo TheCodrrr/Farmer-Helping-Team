@@ -9,6 +9,7 @@ import net.engineeringdigest.journalApp.Repositories.BankRepositary;
 
 import net.engineeringdigest.journalApp.Repositories.UserRepository;
 import net.engineeringdigest.journalApp.Services.BankService;
+import net.engineeringdigest.journalApp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,7 +36,9 @@ public class BankController {
 	
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/getBankInfo")
 	public ResponseEntity<?> getUser(){
@@ -53,7 +57,8 @@ public class BankController {
 	@GetMapping("/getAllFarmers")
 	public ResponseEntity<?> getAllFarmers(){
 		try{
-			return ResponseEntity.ok(bankService.getAllFarmers());
+			List<UserEntity> all = userService.getAll();
+			return ResponseEntity.ok(all);
 		}
 		catch (Exception e){
 			log.error("Error while fetching farmers",e);

@@ -45,7 +45,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/public/**").permitAll()
 				.antMatchers("/user/**").hasRole("User")
-				.antMatchers("/bank/**").hasRole("BANK")
+				.antMatchers("/Bank/**").hasRole("BANK")
 				.anyRequest().authenticated()
 				.and()
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

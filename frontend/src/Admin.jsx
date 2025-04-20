@@ -42,7 +42,7 @@ const Admin = ({ darkMode = false }) => {
           landQualityScore: 8.4,
           pastRainfall: 850,
           avgTemperature: 28.5,
-          creditScore: 750
+          creditScore: 72.20
         }
       },
       {
@@ -67,7 +67,7 @@ const Admin = ({ darkMode = false }) => {
           landQualityScore: 8.8,
           pastRainfall: 920,
           avgTemperature: 25.2,
-          creditScore: 780
+          creditScore: 63.53
         }
       },
       {
@@ -92,7 +92,7 @@ const Admin = ({ darkMode = false }) => {
           landQualityScore: 7.6,
           pastRainfall: 780,
           avgTemperature: 32.1,
-          creditScore: 715
+          creditScore: 86.32
         }
       }
     ]
@@ -144,7 +144,7 @@ const Admin = ({ darkMode = false }) => {
   const chartBarClass = darkMode ? 'from-blue-500 to-indigo-600' : 'from-blue-500 to-indigo-600';
   
   return (
-    <div className={`min-h-screen ${bgClass} pt-16`}>
+    <div className={`min-h-screen ${bgClass} pt-16 pl-10`}>
       <div className="container mx-auto px-4 py-8">
         <header className="mb-8">
           <motion.div 
@@ -320,8 +320,8 @@ const Admin = ({ darkMode = false }) => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 className={`font-semibold flex items-center ${
-                                  revealedCreditScores[loan.id] > 700 ? 'text-green-600 dark:text-green-400' : 
-                                  revealedCreditScores[loan.id] > 600 ? 'text-yellow-600 dark:text-yellow-400' : 
+                                  revealedCreditScores[loan.id] > 70 ? 'text-green-600 dark:text-green-400' : 
+                                  revealedCreditScores[loan.id] > 60 ? 'text-yellow-600 dark:text-yellow-400' : 
                                   'text-red-600 dark:text-red-400'
                                 }`}
                               >
@@ -455,9 +455,9 @@ const Admin = ({ darkMode = false }) => {
                                       initial={{ opacity: 0, y: 10 }}
                                       animate={{ opacity: 1, y: 0 }}
                                       className={`p-4 rounded-lg ${
-                                        revealedCreditScores[loan.id] > 700 
+                                        revealedCreditScores[loan.id] > 70
                                           ? (darkMode ? 'bg-green-900/20 border-green-800/30' : 'bg-green-50 border-green-200')
-                                          : revealedCreditScores[loan.id] > 600
+                                          : revealedCreditScores[loan.id] > 60
                                             ? (darkMode ? 'bg-yellow-900/20 border-yellow-800/30' : 'bg-yellow-50 border-yellow-200')
                                             : (darkMode ? 'bg-red-900/20 border-red-800/30' : 'bg-red-50 border-red-200')
                                       } border shadow-sm`}
@@ -465,18 +465,18 @@ const Admin = ({ darkMode = false }) => {
                                       <div className="flex justify-between items-center">
                                         <div className="flex items-center gap-2">
                                           <Shield size={18} className={
-                                            revealedCreditScores[loan.id] > 700 
+                                            revealedCreditScores[loan.id] > 70
                                               ? 'text-green-500'
-                                              : revealedCreditScores[loan.id] > 600
+                                              : revealedCreditScores[loan.id] > 60
                                                 ? 'text-yellow-500'
                                                 : 'text-red-500'
                                           } />
                                           <span className="font-medium">Credit Score</span>
                                         </div>
                                         <div className={`text-xl font-bold ${
-                                          revealedCreditScores[loan.id] > 700 
+                                          revealedCreditScores[loan.id] > 70
                                             ? 'text-green-600 dark:text-green-400'
-                                            : revealedCreditScores[loan.id] > 600
+                                            : revealedCreditScores[loan.id] > 60
                                               ? 'text-yellow-600 dark:text-yellow-400'
                                               : 'text-red-600 dark:text-red-400'
                                         }`}>
@@ -487,13 +487,13 @@ const Admin = ({ darkMode = false }) => {
                                         <div className="h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
                                           <div 
                                             className={`h-full rounded-full ${
-                                              revealedCreditScores[loan.id] > 700 
+                                              revealedCreditScores[loan.id] > 70 
                                                 ? 'bg-green-500'
-                                                : revealedCreditScores[loan.id] > 600
+                                                : revealedCreditScores[loan.id] > 60
                                                   ? 'bg-yellow-500'
                                                   : 'bg-red-500'
                                             }`}
-                                            style={{width: `${(revealedCreditScores[loan.id] / 850) * 100}%`}}
+                                            style={{width: `${revealedCreditScores[loan.id]}%`}}
                                           ></div>
                                         </div>
                                       </div>

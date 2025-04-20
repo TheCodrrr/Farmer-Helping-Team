@@ -36,9 +36,9 @@ const getYieldStatus = (yield_) => {
 // Helper function to determine credit status
 const getCreditStatus = (score) => {
   if (score == null) return { status: "Unknown", color: "bg-gray-500" };
-  if (score >= 750) return { status: "Excellent", color: "bg-green-500" };
-  if (score >= 650) return { status: "Good", color: "bg-blue-500" };
-  if (score >= 550) return { status: "Fair", color: "bg-yellow-500" };
+  if (score >= 75) return { status: "Excellent", color: "bg-green-500" };
+  if (score >= 65) return { status: "Good", color: "bg-blue-500" };
+  if (score >= 55) return { status: "Fair", color: "bg-yellow-500" };
   return { status: "Poor", color: "bg-red-500" };
 };
 
@@ -121,8 +121,8 @@ export default function General({ darkMode }) {
   };
 
   return (
-    <div className={`min-h-160 w-full mt-0 flex flex-col justify-end items-end sm:py-12 ${darkMode ? "bg-gray-800" : "bg-gray-50"}`}>
-      <div className="relative py-3 sm:max-w-6xl sm:mx-auto w-1000 margin-auto mt-8">
+    <div className={`min-h-160 w-full mt-0 flex flex-col justify-center items-end sm:py-12 ${darkMode ? "bg-gray-800" : "bg-gray-50"}`}>
+      <div className="relative py-3 sm:max-w-6xl pl-10 sm:mx-auto w-1000 margin-auto mt-8">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -186,7 +186,7 @@ export default function General({ darkMode }) {
                   >
                     <div 
                       className={`h-full ${creditStatus.color} rounded-full`}
-                      style={{ width: `${((userData?.creditScore || 0) / 850) * 100}%` }}
+                      style={{ width: `${userData?.creditScore}%` }}
                     ></div>
                   </motion.div>
                   <div className="flex justify-between mt-2 text-sm">
@@ -647,7 +647,7 @@ export default function General({ darkMode }) {
                             <div className={`h-2 rounded-full overflow-hidden ${darkMode ? 'bg-gray-600' : 'bg-gray-200'}`}>
                               <motion.div 
                                 initial={{ width: 0 }}
-                                animate={{ width: `${((userData?.creditScore || 0) / 850) * 100}%` }}
+                                animate={{ width: `${userData?.creditScore}%` }}
                                 transition={{ duration: 1 }}
                                 className={`h-2 ${creditStatus.color}`}
                               ></motion.div>
